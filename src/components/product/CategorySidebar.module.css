@@ -1,0 +1,87 @@
+.sidebar {
+  min-width: 0;
+}
+
+.title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 0.9rem;
+  padding-left: 0.25rem;
+}
+
+.list {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius-md);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-align: left;
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.item:hover {
+  color: var(--text-primary);
+  background: var(--surface-muted);
+}
+
+.item.active {
+  color: var(--text-inverse);
+  background: var(--gradient-brand);
+  box-shadow: var(--shadow-brand);
+}
+
+.itemIcon {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-sm);
+  background: rgba(79, 70, 229, 0.1);
+  color: var(--color-primary-600);
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+.item.active .itemIcon {
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--text-inverse);
+}
+
+/* On mobile the sidebar becomes a scrollable chip row */
+@media (max-width: 860px) {
+  .sidebar {
+    margin-bottom: 1.2rem;
+  }
+
+  .title {
+    display: none;
+  }
+
+  .list {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-bottom: 0.4rem;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .item {
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding: 0.5rem 0.8rem;
+  }
+}

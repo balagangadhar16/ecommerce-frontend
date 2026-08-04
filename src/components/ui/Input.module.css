@@ -1,0 +1,87 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-bottom: 1.1rem;
+}
+
+.label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.control {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--surface-muted);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out);
+}
+
+.control:focus-within {
+  border-color: var(--color-accent-500);
+  background: var(--color-surface);
+  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.14);
+}
+
+.invalid {
+  border-color: var(--danger);
+}
+
+.invalid:focus-within {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.12);
+}
+
+.icon {
+  flex-shrink: 0;
+  margin-left: 0.9rem;
+  color: var(--text-muted);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.control:focus-within .icon {
+  color: var(--color-accent-600);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.8rem 0.9rem;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+.toggle {
+  display: grid;
+  place-items: center;
+  margin-right: 0.6rem;
+  padding: 0.35rem;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.toggle:hover {
+  color: var(--text-primary);
+}
+
+.error {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--danger);
+  animation: fade-in var(--duration-fast) var(--ease-out) both;
+}

@@ -1,0 +1,46 @@
+.page {
+  display: grid;
+  place-items: center;
+  min-height: 70vh;
+  padding: 2rem 1.5rem;
+  background:
+    radial-gradient(700px 400px at 50% 0%, rgba(124, 58, 237, 0.08), transparent 60%),
+    var(--color-bg);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+  max-width: 420px;
+  padding: 3rem 2.5rem;
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  animation: scale-in var(--duration-base) var(--ease-out) both;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  border-radius: var(--radius-full);
+  background: var(--gradient-brand);
+  color: var(--text-inverse);
+  box-shadow: var(--shadow-brand);
+}
+
+.card h1 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.card p {
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
