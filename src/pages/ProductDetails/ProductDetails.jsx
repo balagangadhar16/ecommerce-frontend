@@ -4,14 +4,14 @@ import { ArrowLeft, PackageSearch, ShoppingCart, Truck } from 'lucide-react';
 import Button from '../../components/ui/Button';
 import Spinner from '../../components/ui/Spinner';
 import { catalogService } from '../../services/catalogService';
-import { useToast } from '../../hooks/useToast';
+import { useCart } from '../../hooks/useCart';
 import { getApiError } from '../../utils/errorParser';
 import { formatCurrency, getStockStatus } from '../../utils/formatters';
 import styles from './ProductDetails.module.css';
 
 export default function ProductDetails() {
   const { id } = useParams();
-  const { notify } = useToast();
+  const { addToCart } = useCart();
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -72,7 +72,7 @@ export default function ProductDetails() {
   const outOfStock = stock.tone === 'out';
 
   const handleAddToCart = () => {
-    notify('info', 'Cart is coming soon!');
+    addToCart(product.productId, 1);
   };
 
   return (

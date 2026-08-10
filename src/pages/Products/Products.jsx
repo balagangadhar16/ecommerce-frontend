@@ -6,11 +6,13 @@ import ProductCard from '../../components/product/ProductCard';
 import Button from '../../components/ui/Button';
 import { catalogService } from '../../services/catalogService';
 import { useToast } from '../../hooks/useToast';
+import { useCart } from '../../hooks/useCart';
 import { getApiError } from '../../utils/errorParser';
 import styles from './Products.module.css';
 
 export default function Products() {
   const { notify } = useToast();
+  const { addToCart } = useCart();
 
   const [categories, setCategories] = useState([]);
   const [activeCategoryId, setActiveCategoryId] = useState(null);
@@ -55,8 +57,8 @@ export default function Products() {
     loadProducts(categoryId);
   };
 
-  const handleAddToCart = () => {
-    notify('info', 'Cart is coming soon!');
+  const handleAddToCart = (product) => {
+    addToCart(product.productId, 1);
   };
 
   const visibleProducts = useMemo(() => {

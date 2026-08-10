@@ -46,6 +46,20 @@
   background: rgba(79, 70, 229, 0.08);
 }
 
+.badge {
+  display: grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: var(--radius-full);
+  background: var(--gradient-brand);
+  color: var(--text-inverse);
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
 .actions {
   display: flex;
   align-items: center;

@@ -1,22 +1,27 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { LogOut, Menu, ShoppingCart, X } from 'lucide-react';
+import { History, LogOut, Menu, ShoppingCart, X } from 'lucide-react';
 import Logo from '../ui/Logo';
 import Button from '../ui/Button';
 import { useAuth } from '../../hooks/useAuth';
+import { useCart } from '../../hooks/useCart';
 import styles from './Navbar.module.css';
 
 const NAV_LINKS = [
   { to: '/', label: 'Home' },
   { to: '/products', label: 'Products' },
-  { to: '/cart', label: 'Cart', icon: ShoppingCart },
+  { to: '/cart', label: 'Cart', icon: ShoppingCart, badge: true },
+  { to: '/orders', label: 'Orders', icon: History, authOnly: true },
 ];
 
 export default function Navbar() {
   const { isAuthenticated, user, logout } = useAuth();
+  const { count } = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const closeMenu = () => setMenuOpen(false);
+
+  const badgeCount = isAuthenticated ? count : 0;
 
   return (
     <header className={styles.header}>
@@ -25,18 +30,25 @@ export default function Navbar() {
 
         {/* Desktop links */}
         <ul className={styles.links}>
-          {NAV_LINKS.map(({ to, label, icon: Icon }) => (
-            <li key={to}>
-              <NavLink
-                to={to}
-                end={to === '/'}
-                className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}
-              >
-                {Icon && <Icon size={17} aria-hidden="true" />}
-                {label}
-              </NavLink>
-            </li>
-          ))}
+          {NAV_LINKS.filter((link) => !link.authOnly || isAuthenticated).map(
+            ({ to, label, icon: Icon, badge }) => (
+              <li key={to}>
+                <NavLink
+                  to={to}
+                  end={to === '/'}
+                  className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}
+                >
+                  {Icon && <Icon size={17} aria-hidden="true" />}
+                  {label}
+                  {badge && badgeCount > 0 && (
+                    <span className={styles.badge} aria-label={`${badgeCount} items in cart`}>
+                      {badgeCount > 99 ? '99+' : badgeCount}
+                    </span>
+                  )}
+                </NavLink>
+              </li>
+            ),
+          )}
         </ul>
 
         {/* Desktop actions */}
@@ -91,7 +103,7 @@ export default function Navbar() {
       {menuOpen && (
         <div className={styles.mobilePanel}>
           <ul className={styles.mobileLinks}>
-            {NAV_LINKS.map(({ to, label }) => (
+            {NAV_LINKS.filter((link) => !link.authOnly || isAuthenticated).map(({ to, label }) => (
               <li key={to}>
                 <NavLink to={to} end={to === '/'} onClick={closeMenu} className={styles.mobileLink}>
                   {label}
