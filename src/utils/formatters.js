@@ -11,6 +11,18 @@ export function formatCurrency(value) {
 }
 
 /**
+ * Currency with exactly two decimals (e.g. revenue figures like ₹8,195.00).
+ */
+export function formatCurrencyExact(value) {
+  return new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(Number(value ?? 0));
+}
+
+/**
  * Derives a human-friendly stock message + tone from the raw count.
  * @returns {{ label: string, tone: 'in' | 'low' | 'out' }}
  */

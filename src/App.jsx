@@ -13,8 +13,18 @@ import ProductDetails from './pages/ProductDetails/ProductDetails';
 import Cart from './pages/Cart/Cart';
 import PaymentResult from './pages/PaymentResult/PaymentResult';
 import OrderHistory from './pages/OrderHistory/OrderHistory';
+import AdminRoute from './components/AdminRoute';
+import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
+import AdminAddProduct from './pages/AdminAddProduct/AdminAddProduct';
+import AdminDeleteProduct from './pages/AdminDeleteProduct/AdminDeleteProduct';
+import AdminModifyUser from './pages/AdminModifyUser/AdminModifyUser';
+import AdminUserDetails from './pages/AdminUserDetails/AdminUserDetails';
+import AdminAnalytics from './pages/AdminAnalytics/AdminAnalytics';
 
 const AUTH_PATHS = ['/login', '/register'];
+
+// Pages that render their own standalone header instead of the customer navbar.
+const STANDALONE_PREFIXES = ['/admin'];
 
 export default function App() {
   return (
@@ -32,11 +42,13 @@ export default function App() {
 
 function AppShell() {
   const location = useLocation();
-  const isAuthPage = AUTH_PATHS.includes(location.pathname);
+  const isStandalonePage =
+    STANDALONE_PREFIXES.some((prefix) => location.pathname.startsWith(prefix)) ||
+    AUTH_PATHS.includes(location.pathname);
 
   return (
     <>
-      {!isAuthPage && <Navbar />}
+      {!isStandalonePage && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -73,6 +85,78 @@ function AppShell() {
             <ProtectedRoute>
               <OrderHistory />
             </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <AdminRoute>
+              <AdminDashboard />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/add-product"
+          element={
+            <AdminRoute>
+              <AdminAddProduct />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/delete-product"
+          element={
+            <AdminRoute>
+              <AdminDeleteProduct />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/modify-user"
+          element={
+            <AdminRoute>
+              <AdminModifyUser />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/user-details"
+          element={
+            <AdminRoute>
+              <AdminUserDetails />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/analytics/day"
+          element={
+            <AdminRoute>
+              <AdminAnalytics mode="day" />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/analytics/month"
+          element={
+            <AdminRoute>
+              <AdminAnalytics mode="month" />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/analytics/year"
+          element={
+            <AdminRoute>
+              <AdminAnalytics mode="year" />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/analytics/overall"
+          element={
+            <AdminRoute>
+              <AdminAnalytics mode="overall" />
+            </AdminRoute>
           }
         />
         <Route path="*" element={<Navigate to="/" replace />} />
